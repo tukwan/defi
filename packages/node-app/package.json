@@ -1,0 +1,32 @@
+{
+  "name": "@project/node-app",
+  "description": "server",
+  "author": "Nick Zbiegien <nzbiegien@gmail.com>",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": "12.16.3"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "4.17.1",
+    "path": "0.12.7"
+  },
+  "devDependencies": {
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

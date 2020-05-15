@@ -1,0 +1,49 @@
+{
+  "name": "@project/react-app",
+  "description": "client",
+  "author": "Nick Zbiegien <nzbiegien@gmail.com>",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": "12.16.3"
+  },
+  "scripts": {
+    "deploy": "git push heroku master -f",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "lint": "eslint --ignore-path .gitignore --ext .js,.jsx,.ts,.tsx ./",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "ramda": "0.27.0",
+    "react": "16.13.0",
+    "react-dom": "16.13.0",
+    "react-scripts": "3.4.0",
+    "rxjs": "6.5.4",
+    "styled-components": "5.0.1",
+    "web3": "1.2.6",
+    "@project/eth-app": "1.0.0"
+  },
+  "devDependencies": {
+    "@types/ramda": "0.26.43",
+    "@types/react": "16.9.23",
+    "@types/react-dom": "16.9.5",
+    "@types/styled-components": "5.0.1",
+    "typescript": "3.8.3",
+    "typescript-styled-plugin": "0.15.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

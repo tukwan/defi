@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "dapp-template",
+  "version": "1.0.0",
+  "author": "Nick Zbiegien <nzbiegien@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}
