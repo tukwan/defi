@@ -18,20 +18,20 @@
   },
   "dependencies": {
     "ramda": "0.27.0",
-    "react": "16.13.0",
-    "react-dom": "16.13.0",
-    "react-scripts": "3.4.0",
-    "rxjs": "6.5.4",
-    "styled-components": "5.0.1",
-    "web3": "1.2.6",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-scripts": "3.4.1",
+    "rxjs": "6.5.5",
+    "styled-components": "5.1.0",
+    "web3": "1.2.7",
     "@project/eth-app": "1.0.0"
   },
   "devDependencies": {
-    "@types/ramda": "0.26.43",
-    "@types/react": "16.9.23",
-    "@types/react-dom": "16.9.5",
-    "@types/styled-components": "5.0.1",
-    "typescript": "3.8.3",
+    "@types/ramda": "0.27.5",
+    "@types/react": "16.9.35",
+    "@types/react-dom": "16.9.8",
+    "@types/styled-components": "5.1.0",
+    "typescript": "3.9.2",
     "typescript-styled-plugin": "0.15.0"
   },
   "browserslist": {

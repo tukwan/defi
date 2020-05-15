@@ -1,3 +1,5 @@
-module.exports = async function(deployer, network, accounts) {
+const Dai = artifacts.require('Dai')
 
+module.exports = function(deployer) {
+  deployer.deploy(Dai)
 }
