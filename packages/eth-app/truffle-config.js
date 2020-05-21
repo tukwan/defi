@@ -1,34 +1,50 @@
 require('dotenv').config()
 const HDWalletProvider = require('@truffle/hdwallet-provider')
-const privateKeys = process.env.PRIVATE_KEYS || ''
+
+const { INFURA_PROJECT_ID, MNEMONIC, PRIVATE_KEY_RINKEBY } = process.env
 
 module.exports = {
   networks: {
     development: {
       host: '127.0.0.1',
       port: 8545,
-      network_id: '*',
+      network_id: '*'
+    },
+    ropsten: {
+      provider: function() {
+        return new HDWalletProvider(MNEMONIC, 'https://ropsten.infura.io/v3/' + INFURA_PROJECT_ID)
+      },
+      network_id: '3',
+      gas: 4465030,
+      gasPrice: 10000000000
     },
     kovan: {
-      provider: function () {
-        return new HDWalletProvider(
-          privateKeys.split(','), //TO UPDATE - arr of account private keys
-          `https://kovan.infura.io/v3/${process.env.INFURA_API_KEY}`, //TO UPDATE - url to an ethereum node
-        )
+      provider: function() {
+        return new HDWalletProvider(MNEMONIC, 'https://kovan.infura.io/v3/' + INFURA_PROJECT_ID)
       },
-      gas: 5000000,
-      gasPrice: 25000000000,
-      network_id: 42,
+      network_id: '42',
+      gas: 4465030,
+      gasPrice: 10000000000
+    },
+    rinkeby: {
+      provider: () => new HDWalletProvider(PRIVATE_KEY_RINKEBY, 'https://rinkeby.infura.io/v3/' + INFURA_PROJECT_ID),
+      network_id: 4,
+      gas: 3000000,
+      gasPrice: 10000000000
+    },
+    main: {
+      provider: () => new HDWalletProvider(MNEMONIC, 'https://mainnet.infura.io/v3/' + INFURA_PROJECT_ID),
+      network_id: 1,
+      gas: 3000000,
+      gasPrice: 10000000000
     }
   },
   plugins: ['solidity-coverage'],
-  contracts_directory: './contracts',
-  contracts_build_directory: './abis',
   compilers: {
     solc: {
       version: '0.6.7',
       optimizer: {
-        enabled: true,
+        enabled: false,
         runs: 200
       }
     }

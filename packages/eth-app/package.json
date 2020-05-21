@@ -10,13 +10,17 @@
     "node": "12.16.3"
   },
   "scripts": {
-    "com": "oz compile",
+    "c": "oz compile",
+    "migrate": "truffle migrate --reset",
+    "deploy": "truffle migrate --reset --network rinkeby",
+    "deploy-oz": "oz deploy",
     "test": "oz compile && mocha --exit --recursive -w test/*",
     "cov": "truffle run coverage",
     "lint": "solhint \"src/contracts/**/*.sol\""
   },
   "devDependencies": {
     "@openzeppelin/cli": "2.8.2",
+    "@openzeppelin/contract-loader": "^0.6.1",
     "@openzeppelin/contracts": "3.0.1",
     "@openzeppelin/contracts-ethereum-package": "3.0.0",
     "@openzeppelin/test-environment": "0.1.4",
@@ -34,6 +38,8 @@
     "solhint": "3.0.0",
     "solidity-coverage": "0.7.5",
     "truffle": "5.1.26",
-    "typescript": "3.9.2"
+    "truffle-flattener": "1.4.4",
+    "typescript": "3.9.2",
+    "web3": "^1.2.7"
   }
 }

@@ -3,7 +3,7 @@ const path = require('path')
 
 // Consts
 const indexFilePath = path.resolve('./', 'index.ts')
-const abisPath = path.resolve('./', 'abis')
+const abisPath = path.resolve('./', 'build/contracts')
 const abisFiles = fs.readdirSync(abisPath)
 
 // Builders
@@ -14,7 +14,7 @@ const safeVariableName = fileName => {
 
 const buildImportBlocks = files => {
   const importBlocks = files.map(
-    fileName => 'import ' + safeVariableName(fileName) + " from './abis/" + fileName + "'"
+    fileName => 'import ' + safeVariableName(fileName) + " from './build/contracts/" + fileName + "'"
   )
   const importBlocksJoined = importBlocks.join('\n')
   return importBlocksJoined

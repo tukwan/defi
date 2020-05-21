@@ -1,0 +1,14 @@
+{
+  "contracts": {},
+  "solidityLibs": {},
+  "proxies": {
+    "eth-app/SToken": [
+      {
+        "address": "0xEee19F7bEfc27CD68Fcc5c8f09c983887bAF8072",
+        "kind": "NonProxy",
+        "bytecodeHash": "4c2f6e0d0b9fe4b89aaec4fd1385d05a48819146d183c17f88b3389556889ece"
+      }
+    ]
+  },
+  "manifestVersion": "2.2"
+}
