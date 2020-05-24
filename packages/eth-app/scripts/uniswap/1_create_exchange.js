@@ -1,28 +1,25 @@
+// Create new exchange - send a signed transaction createExchange to the deployed Uniswap Factory contract
 const resolve = require('path').resolve
 require('dotenv').config({ path: resolve(__dirname, '../.env') })
 const Web3 = require('web3')
 const axios = require('axios')
 const Tx = require('ethereumjs-tx').Transaction
-const { setupLoader } = require('@openzeppelin/contract-loader')
 
 // connect to Ethereum
 const { INFURA_PROJECT_ID, PRIVATE_KEY_RINKEBY } = process.env
 const chainRinkeby = `https://rinkeby.infura.io/v3/${INFURA_PROJECT_ID}`
 const web3 = new Web3(new Web3.providers.HttpProvider(chainRinkeby))
+
 // txData: consts
 const addressFrom = '0xA01caBAaAf53E2835F89d3CCe25A2242A4abAEF6' // Metamask Rinkebery_1
 const addressFromPrivateKey = PRIVATE_KEY_RINKEBY
-const addressTo = '0xEee19F7bEfc27CD68Fcc5c8f09c983887bAF8072' // SToken
-const recipientAddress = '0x1Da897E2C64a273c8B6Af30966F9dE2Df65E6F10' // Metamask Rinkebery_2
-const amountToSend = web3.utils.toWei('0.05', 'ether')
-const tokensToMint = web3.utils.toWei('1', 'ether') // 1 token = 1 eth (18 decimals)
+const addressTo = '0xf5d915570bc477f9b8d6c0e980aa81757a3aac36' // UniswapExchangeFactory contract (IUniswapFactoryInterface)
+const addressToken = '0xEee19F7bEfc27CD68Fcc5c8f09c983887bAF8072' // SToken
 // txData: data:encodeABI
-const contractLoader = setupLoader({ provider: web3 })
-const sToken = contractLoader.web3.fromArtifact('SToken')
-// const sToken = contractLoader.web3.fromArtifact('SToken', contractAddress)
-const encodedABI = sToken.methods.mintForEth(recipientAddress, tokensToMint).encodeABI()
-// const contractABI ='...'
-// const contract = new web3.eth.Contract(JSON.parse(contractABI), contractAddress)
+const uniswapExchangeFactoryABI =
+  '[{"name":"NewExchange","inputs":[{"type":"address","name":"token","indexed":true},{"type":"address","name":"exchange","indexed":true}],"anonymous":false,"type":"event"},{"name":"initializeFactory","outputs":[],"inputs":[{"type":"address","name":"template"}],"constant":false,"payable":false,"type":"function","gas":35725},{"name":"createExchange","outputs":[{"type":"address","name":"out"}],"inputs":[{"type":"address","name":"token"}],"constant":false,"payable":false,"type":"function","gas":187911},{"name":"getExchange","outputs":[{"type":"address","name":"out"}],"inputs":[{"type":"address","name":"token"}],"constant":true,"payable":false,"type":"function","gas":715},{"name":"getToken","outputs":[{"type":"address","name":"out"}],"inputs":[{"type":"address","name":"exchange"}],"constant":true,"payable":false,"type":"function","gas":745},{"name":"getTokenWithId","outputs":[{"type":"address","name":"out"}],"inputs":[{"type":"uint256","name":"token_id"}],"constant":true,"payable":false,"type":"function","gas":736},{"name":"exchangeTemplate","outputs":[{"type":"address","name":"out"}],"inputs":[],"constant":true,"payable":false,"type":"function","gas":633},{"name":"tokenCount","outputs":[{"type":"uint256","name":"out"}],"inputs":[],"constant":true,"payable":false,"type":"function","gas":663}]'
+const uniswapExchangeFactory = new web3.eth.Contract(JSON.parse(uniswapExchangeFactoryABI))
+const encodedABI = uniswapExchangeFactory.methods.createExchange(addressToken).encodeABI()
 
 // send signed raw transaction
 const sendTx = async () => {
@@ -44,7 +41,6 @@ const sendTx = async () => {
     nonce: nonce,
     chainId: 4, // EIP 155 - mainnet: 1, rinkeby: 4
     data: encodedABI, // send raw data
-    value: web3.utils.toHex(amountToSend)
   }
 
   const tx = new Tx(txData, { chain: 'rinkeby' }) // default mainnet
