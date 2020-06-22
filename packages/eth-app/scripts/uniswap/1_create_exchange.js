@@ -46,7 +46,7 @@ const sendTx = async () => {
   const tx = new Tx(txData, { chain: 'rinkeby' }) // default mainnet
   // sign tx with privateKey
   tx.sign(Buffer.from(addressFromPrivateKey, 'hex'))
-  // serlize to send over a net
+  // serialize to send over a net
   const serializedTransaction = tx.serialize()
 
   try {

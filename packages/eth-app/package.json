@@ -11,7 +11,7 @@
   },
   "scripts": {
     "c": "oz compile",
-    "migrate": "truffle migrate --reset",
+    "m": "truffle migrate --reset",
     "deploy": "truffle migrate --reset --network rinkeby",
     "deploy-oz": "oz deploy",
     "test": "oz compile && mocha --exit --recursive -w test/*",
