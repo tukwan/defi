@@ -1,7 +1,7 @@
 // truffle migrate --reset
 // truffle migrate --network rinkeby
 // yarn truffle-flattener contracts/SToken.sol > STokenflat.sol
-// const { BN, ether, time } = require('@openzeppelin/test-helpers')
+const { ether } = require('@openzeppelin/test-helpers')
 // ganache-cli --fork https://rinkeby.infura.io/v3/d2b6be223087401fb875522c75d84571 --unlock 0xA01caBAaAf53E2835F89d3CCe25A2242A4abAEF6
 
 const SToken = artifacts.require('SToken')
@@ -19,22 +19,30 @@ module.exports = async function(deployer, _network, accounts) {
 
   // Deploy SToken
   await deployer.deploy(SToken, { from: myWallet })
-  const sToken = await SToken.deployed()
+  const token = await SToken.deployed()
+  const tokenAddress = token.address
 
   // Deploy Uniswap
   await deployer.deploy(Uniswap, { from: myWallet })
   const uniswap = await Uniswap.deployed()
 
   // 1_create_exchange
-  await uniswap.createExchange(sToken.address)
+  await uniswap.createExchange(tokenAddress)
 
   // 2_get_exchange
-  const tokenExchangeAddress = await uniswap.getExchange(sToken.address)
+  // const tokenExchangeAddress = await uniswap.getExchange(tokenAddress)
+  const tokenExchangeAddress = await uniswap.exchangeAddressOf.call(tokenAddress)
   console.log(`Token exchange address: https://rinkeby.etherscan.io/address/${tokenExchangeAddress}`)
 
   // 3_approve
+  // const tokensToApprove = web3.utils.toWei('20', 'ether')
+  const tokensToApprove = ether('20')
+  await token.approve(tokenExchangeAddress, tokensToApprove)
 
   // 4_add_liquidity
+  const tokensToAdd = ether('10')
+  const ethToAdd = ether('0.1')
+  await uniswap.addLiquidity(tokenAddress, tokensToAdd, { value: ethToAdd })
 
   // 5_swap_eth_token
 
