@@ -1,7 +1,6 @@
 {
   "manifestVersion": "2.2",
-  "contracts": {
-  },
+  "contracts": {},
   "dependencies": {},
   "name": "eth-app",
   "version": "1.0.0",

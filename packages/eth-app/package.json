@@ -1,22 +1,25 @@
 {
   "name": "@project/eth-app",
   "description": "ethereum contracts",
-  "author": "zbiegien <nzbiegien@gmail.com>",
+  "author": "Nick Zbiegien",
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
-  "main": "./index.ts",
+  "main": "index.ts",
   "engines": {
     "node": "12.16.3"
   },
   "scripts": {
-    "c": "oz compile",
     "m": "truffle migrate --reset",
     "deploy": "truffle migrate --reset --network rinkeby",
-    "deploy-oz": "oz deploy",
-    "test": "oz compile && mocha --exit --recursive -w test/*",
+    "test": "truffle test --network test --debug --stacktrace-extra",
+    "g:dev": "ganache-cli -d",
+    "g:test": "ganache-cli -d -i 777 -p 8777",
     "cov": "truffle run coverage",
-    "lint": "solhint \"src/contracts/**/*.sol\""
+    "lint": "solhint \"src/contracts/**/*.sol\"",
+    "oz:deploy": "oz deploy",
+    "oz:compile": "oz compile",
+    "oz:test": "oz compile && mocha --exit --timeout 0 --recursive -w test/*"
   },
   "devDependencies": {
     "@openzeppelin/cli": "2.8.2",

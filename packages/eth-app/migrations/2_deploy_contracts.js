@@ -1,13 +1,15 @@
 // truffle migrate --reset
 // truffle migrate --network rinkeby
 // yarn truffle-flattener contracts/SToken.sol > STokenflat.sol
+// ganache-cli --fork https://rinkeby.infura.io/v3/d2b6be223087401fb875522c75d84571 --unlock 0xA01caBAaAf53E2835F89d3CCe25A2242A4abAEF6 -i 777 -p 8777
 const { ether } = require('@openzeppelin/test-helpers')
-// ganache-cli --fork https://rinkeby.infura.io/v3/d2b6be223087401fb875522c75d84571 --unlock 0xA01caBAaAf53E2835F89d3CCe25A2242A4abAEF6
 
 const SToken = artifacts.require('SToken')
 const Uniswap = artifacts.require('Uniswap')
 
 module.exports = async function(deployer, _network, accounts) {
+  if(deployer.network_id === 777) return // test blockchain
+
   // const myWallet = accounts[0] // Metamask Rinkebery_1 on --network rinkebery
   const myWallet = '0xA01caBAaAf53E2835F89d3CCe25A2242A4abAEF6' // Metamask Rinkebery_1 on ganache-fork
 
@@ -40,9 +42,9 @@ module.exports = async function(deployer, _network, accounts) {
   await token.approve(tokenExchangeAddress, tokensToApprove)
 
   // 4_add_liquidity
-  const tokensToAdd = ether('10')
-  const ethToAdd = ether('0.1')
-  await uniswap.addLiquidity(tokenAddress, tokensToAdd, { value: ethToAdd })
+  // const tokensToAdd = ether('10')
+  // const ethToAdd = ether('0.1')
+  // await uniswap.addLiquidity(tokenAddress, tokensToAdd, { value: ethToAdd })
 
   // 5_swap_eth_token
 

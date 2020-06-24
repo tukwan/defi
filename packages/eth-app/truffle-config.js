@@ -2,7 +2,6 @@ require('dotenv').config()
 const HDWalletProvider = require('@truffle/hdwallet-provider')
 
 const { INFURA_PROJECT_ID, MNEMONIC, PRIVATE_KEY_RINKEBY } = process.env
-// ganache-cli --fork https://mainnet.infura.io/v3/d2b6be223087401fb875522c75d84571 --unlock 0x652d38D814bcdF3E0f750A0FaF272Ee96C1F67ed
 
 module.exports = {
   networks: {
@@ -11,6 +10,11 @@ module.exports = {
       port: 8545,
       network_id: '*',
       skipDryRun: true
+    },
+    test: {
+      host: '127.0.0.1',
+      port: 8777,
+      network_id: 777
     },
     rinkeby: {
       provider: () => new HDWalletProvider(PRIVATE_KEY_RINKEBY, 'https://rinkeby.infura.io/v3/' + INFURA_PROJECT_ID),
@@ -43,6 +47,9 @@ module.exports = {
     }
   },
   plugins: ['solidity-coverage'],
+  mocha: {
+    enableTimeouts: false
+  },
   compilers: {
     solc: {
       version: '0.6.7',

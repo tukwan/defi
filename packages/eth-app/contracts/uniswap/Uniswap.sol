@@ -13,6 +13,7 @@ contract Uniswap {
     }
 
     function createExchange(address token) external {
+        // require(false, 'fail');
         address exchangeAddress = uniswapFactory.createExchange(token);
         exchangeAddressOf[token] = exchangeAddress;
     }
