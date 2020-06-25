@@ -4,7 +4,7 @@ const SToken = artifacts.require('SToken')
 
 contract('SToken', ([deployer, user]) => {
 
-  it.only('should pass the test', async () => {
+  it('should pass the test', async () => {
     const sToken = await SToken.new({ from: deployer })
     const result = await sToken.name()
 

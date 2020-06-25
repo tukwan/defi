@@ -21,7 +21,7 @@ contract Uniswap {
     function addLiquidity(address tokenAddress, uint256 tokenAmount) external payable {
         address exchangeAddress = exchangeAddressOf[tokenAddress];
         IUniswapExchangeInterface exchange = IUniswapExchangeInterface(exchangeAddress);
-        exchange.addLiquidity{value: msg.value}(1, tokenAmount, now + 300);
+        exchange.addLiquidity{value: msg.value}(1, tokenAmount, now + 10000);
     }
 
     function buy(address tokenAddress) external payable {
